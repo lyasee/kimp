@@ -1,0 +1,22 @@
+import { combineReducers } from '@reduxjs/toolkit';
+import { all } from 'redux-saga/effects';
+import coin from './coin';
+import bitcoin from './bitcoin';
+import binance from './binance';
+import currency from './currency';
+import { coinSaga } from './coinSaga';
+
+const rootReducer = combineReducers({
+  coin,
+  bitcoin,
+  binance,
+  currency,
+});
+
+export function* rootSaga() {
+  yield all([coinSaga()]);
+}
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;
