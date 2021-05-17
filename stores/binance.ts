@@ -37,9 +37,9 @@ export const fetchGetBinancePrices = (): AppThunk => async (dispatch) => {
 
   const obj: IBinancePrice = {};
   json
-    .filter((v) => v.symbol.indexOf('BUSD') !== -1)
+    .filter((v) => v.symbol.indexOf('BUSD') !== -1 || v.symbol.indexOf('USDT') !== -1)
     .forEach((v) => {
-      obj[v.symbol.replace('BUSD', '')] = {
+      obj[v.symbol.replace('BUSD', '').replace('USDT', '')] = {
         price: Number(v.price),
       };
     });
