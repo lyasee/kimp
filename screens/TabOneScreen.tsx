@@ -7,8 +7,12 @@ import { IWebSocketData } from '../types/coin.types';
 import { binancePrices, fetchGetBinancePrices } from '../stores/binance';
 import { currencyUSD, fetchGetCurrency } from '../stores/currency';
 import useInterval from '../hooks/useInterval';
+import useColorScheme from '../hooks/useColorScheme';
+import Colors from '../constants/Colors';
 
 export default function TabOneScreen() {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme];
   const dispatch = useDispatch();
   const items = useSelector(coin);
   const names = useSelector(coinNames);
@@ -22,11 +26,11 @@ export default function TabOneScreen() {
 
   const getPriceColor = ({ trade_price, prev_closing_price }: IWebSocketData) => {
     if (trade_price > prev_closing_price) {
-      return '#c34042';
+      return colors.priceRise;
     } else if (trade_price === prev_closing_price) {
-      return '#fff';
+      return colors.priceEven;
     } else {
-      return '#0966c6';
+      return colors.priceFall;
     }
   };
 
@@ -62,43 +66,62 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View>
-          <Text>환율: {usd.basePrice}</Text>
+        <View style={styles.exchangeRateWrapper}>
+          <Text style={{ ...styles.exchangeRate, color: colors.exchangeRate }}>
+            환율: {usd.basePrice}
+          </Text>
         </View>
 
-        <View style={styles.item}>
-          <Text style={styles.name}>이름</Text>
-          <View style={styles.ubbitPriceColumn}>
-            <Text style={styles.upbitPrice}>업비트</Text>
-          </View>
-          <Text style={styles.kimchi}>김프</Text>
+        <View
+          style={{
+            ...styles.header,
+            borderColor: colors.border,
+            backgroundColor: colors.tableHeaderBackground,
+          }}>
+          <Text style={{ ...styles.name, ...styles.headerTitle }}>이름</Text>
+          <Text style={{ ...styles.upbitPrice, ...styles.headerTitle }}>업비트</Text>
+          <Text style={{ ...styles.upbitPriceRate, ...styles.headerTitle }}>전일대비</Text>
+          <Text style={{ ...styles.kimchi, ...styles.headerTitle }}>김프</Text>
         </View>
 
-        {Object.keys(items).map((key) => (
-          <View key={key} style={styles.item}>
-            <Text style={styles.name}>{names[key].name}</Text>
-            <View style={styles.ubbitPriceColumn}>
+        {Object.keys(items)
+          .filter((key) => names[key])
+          .map((key) => (
+            <View key={key} style={{ ...styles.item, borderColor: colors.border }}>
+              <Text style={styles.name}>{names[key].name}</Text>
+
               <Text
                 style={{
                   ...styles.upbitPrice,
                   color: getPriceColor(items[key]),
                 }}>
                 {Number(items[key].trade_price).toLocaleString()}
+                {/* <Text style={{ color: '#acacac', fontSize: 13 }}>
+                  {'\n'}
+                  {binancePriceList[key.replace('KRW-', '')]
+                    ? Number(
+                        (
+                          binancePriceList[key.replace('KRW-', '')].price *
+                          (usd ? usd.basePrice : 0)
+                        ).toFixed(0),
+                      ).toLocaleString()
+                    : 0}
+                </Text> */}
               </Text>
+
               <Text
                 style={{
                   ...styles.upbitPriceRate,
                   color: getPriceColor(items[key]),
                 }}>
+                {getUpbitPriceMark(items[key].change)}
                 {Number(items[key].change_rate * 100).toFixed(2)}%
               </Text>
+              <Text style={{ ...styles.kimchi, ...styles.bold, color: colors.kimchiPercentage }}>
+                {getKimchiPercentage(key)}
+              </Text>
             </View>
-            <Text style={{ ...styles.kimchi, color: '#ccc' }}>
-              {getUpbitPriceMark(items[key].change)}
-              {getKimchiPercentage(key)}
-            </Text>
-          </View>
-        ))}
+          ))}
       </ScrollView>
     </View>
   );
@@ -108,29 +131,47 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  item: {
-    padding: 16,
+  exchangeRateWrapper: {
+    padding: 12,
+  },
+  exchangeRate: {
+    fontSize: 13,
+  },
+  header: {
+    padding: 12,
+    borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#141313',
     flexDirection: 'row',
   },
-  name: {
-    width: 140,
+  headerTitle: {
+    fontSize: 13,
   },
-  ubbitPriceColumn: {
-    width: 120,
+  item: {
+    padding: 12,
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  name: {
+    fontSize: 13,
+    flex: 1,
   },
   upbitPrice: {
+    flex: 1,
     fontSize: 14,
     textAlign: 'right',
   },
   upbitPriceRate: {
+    flex: 0.7,
     fontSize: 14,
-    marginTop: 4,
     textAlign: 'right',
   },
   kimchi: {
+    fontSize: 14,
+    flex: 0.8,
     textAlign: 'right',
-    flex: 1,
+  },
+  bold: {
+    fontWeight: 'bold',
   },
 });

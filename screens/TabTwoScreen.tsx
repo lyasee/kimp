@@ -5,8 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchGetBitcoinRate, bitcoinRate, bitcoinBinance } from '../stores/bitcoin';
 import useInterval from '../hooks/useInterval';
 import { coin } from '../stores/coin';
+import useColorScheme from '../hooks/useColorScheme';
+import Colors from '../constants/Colors';
 
 export default function TabTwoScreen() {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme];
   const dispatch = useDispatch();
   const rate = useSelector(bitcoinRate);
   const binance = useSelector(bitcoinBinance);
@@ -18,11 +22,11 @@ export default function TabTwoScreen() {
 
   const getBitcoinPriceColor = (price: number, openPrice: number) => {
     if (price > openPrice) {
-      return '#c34042';
+      return colors.priceRise;
     } else if (price === openPrice) {
-      return '#fff';
+      return colors.priceEven;
     } else {
-      return '#0966c6';
+      return colors.priceFall;
     }
   };
 
@@ -37,11 +41,11 @@ export default function TabTwoScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={{ ...styles.container, backgroundColor: colors.background }}>
       <View style={styles.boxWrapper}>
-        <View style={styles.box}>
+        <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
           <Text style={styles.boxTitle}>Binance</Text>
-          <View style={styles.priceWrapper}>
+          <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
             <Text style={styles.openPrice}>
               open {binance.openPrice.toFixed(2).toLocaleString()}
             </Text>
@@ -64,9 +68,9 @@ export default function TabTwoScreen() {
       </View>
 
       <View style={styles.boxWrapper}>
-        <View style={styles.box}>
+        <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
           <Text style={styles.boxTitle}>Upbit</Text>
-          <View style={styles.priceWrapper}>
+          <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
             <Text style={styles.openPrice}>
               open {coins['KRW-BTC'].trade_price.toLocaleString()}
             </Text>
@@ -98,16 +102,16 @@ export default function TabTwoScreen() {
       </View>
 
       <View style={styles.boxWrapper}>
-        <View style={styles.box}>
+        <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
           <Text style={styles.boxTitle}>Long</Text>
-          <Text style={{ ...styles.rate, color: '#c34042' }}>{rate.long}%</Text>
+          <Text style={{ ...styles.rate, color: colors.priceRise }}>{rate.long}%</Text>
         </View>
       </View>
 
       <View style={styles.boxWrapper}>
-        <View style={styles.box}>
+        <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
           <Text style={styles.boxTitle}>Short</Text>
-          <Text style={{ ...styles.rate, color: '#0966c6' }}>{rate.short}%</Text>
+          <Text style={{ ...styles.rate, color: colors.priceFall }}>{rate.short}%</Text>
         </View>
       </View>
     </ScrollView>
@@ -117,6 +121,7 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 8,
+    paddingBottom: 8,
   },
   title: {
     fontSize: 20,
@@ -128,8 +133,8 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   boxWrapper: {
-    paddingLeft: 8,
-    paddingRight: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
     paddingTop: 8,
     paddingBottom: 8,
   },
@@ -137,7 +142,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     borderRadius: 8,
-    backgroundColor: '#141313',
   },
   boxTitle: {
     fontSize: 20,
@@ -151,7 +155,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   priceWrapper: {
-    backgroundColor: '#141313',
     alignItems: 'flex-end',
   },
   openPrice: {
