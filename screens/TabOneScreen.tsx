@@ -85,7 +85,7 @@ export default function TabOneScreen() {
         </View>
 
         {Object.keys(items)
-          .filter((key) => names[key])
+          .filter((key) => names[key] && items[key])
           .map((key) => (
             <View key={key} style={{ ...styles.item, borderColor: colors.border }}>
               <Text style={styles.name}>{names[key].name}</Text>
