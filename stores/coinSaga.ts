@@ -14,7 +14,7 @@ const connectSocekt = (socket: WebSocket, buffer: any) => {
     socket.onopen = () => {
       socket.send(
         JSON.stringify([
-          { ticket: 'ddddqdqd-122122321223221' },
+          { ticket: 'kimp-app-2021' + new Date().getTime() },
           {
             type: 'ticker',
             codes: [
@@ -117,7 +117,7 @@ const connectSocekt = (socket: WebSocket, buffer: any) => {
               // 'KRW-PCI',
               'KRW-STRAX',
               // 'KRW-AQT',
-              'KRW-BCHA',
+              // 'KRW-BCHA',
               // 'KRW-GLM',
               // 'KRW-QTCON',
               // 'KRW-SSX',
