@@ -1,4 +1,4 @@
-const tintColorLight = '#2f95dc';
+const tintColorLight = '#141313';
 const tintColorDark = '#fff';
 
 export default {
@@ -15,7 +15,8 @@ export default {
     bitcoinBox: '#f2f2f5',
     tableHeaderBackground: '#f2f2f5',
     kimchiPercentage: '#339133',
-    exchangeRate: '#445',
+    exchangeRate: '#999',
+    binanceExchangeRatePrice: '#a9a9a9',
   },
   dark: {
     text: '#fff',
@@ -31,5 +32,6 @@ export default {
     tableHeaderBackground: '#141313',
     kimchiPercentage: '#339133',
     exchangeRate: '#445',
+    binanceExchangeRatePrice: '#5e5e5e',
   },
 };

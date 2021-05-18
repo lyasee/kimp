@@ -66,9 +66,12 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.exchangeRateWrapper}>
-          <Text style={{ ...styles.exchangeRate, color: colors.exchangeRate }}>
+        <View style={styles.topDescriptionWrapper}>
+          <Text style={{ ...styles.description, color: colors.exchangeRate }}>
             환율: {usd.basePrice}
+          </Text>
+          <Text style={{ ...styles.description, color: colors.exchangeRate }}>
+            회색은 바이낸스 가격입니다.
           </Text>
         </View>
 
@@ -79,7 +82,7 @@ export default function TabOneScreen() {
             backgroundColor: colors.tableHeaderBackground,
           }}>
           <Text style={{ ...styles.name, ...styles.headerTitle }}>이름</Text>
-          <Text style={{ ...styles.upbitPrice, ...styles.headerTitle }}>업비트</Text>
+          <Text style={{ ...styles.upbitPrice, ...styles.headerTitle }}>가격</Text>
           <Text style={{ ...styles.upbitPriceRate, ...styles.headerTitle }}>전일대비</Text>
           <Text style={{ ...styles.kimchi, ...styles.headerTitle }}>김프</Text>
         </View>
@@ -96,7 +99,11 @@ export default function TabOneScreen() {
                   color: getPriceColor(items[key]),
                 }}>
                 {Number(items[key].trade_price).toLocaleString()}
-                {/* <Text style={{ color: '#acacac', fontSize: 13 }}>
+                <Text
+                  style={{
+                    ...styles.binanceExchangeRatePrice,
+                    color: colors.binanceExchangeRatePrice,
+                  }}>
                   {'\n'}
                   {binancePriceList[key.replace('KRW-', '')]
                     ? Number(
@@ -106,7 +113,7 @@ export default function TabOneScreen() {
                         ).toFixed(0),
                       ).toLocaleString()
                     : 0}
-                </Text> */}
+                </Text>
               </Text>
 
               <Text
@@ -131,20 +138,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  exchangeRateWrapper: {
+  topDescriptionWrapper: {
     padding: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  exchangeRate: {
-    fontSize: 13,
+  description: {
+    fontSize: 11,
+    fontFamily: 'esamanru-light',
   },
   header: {
     padding: 12,
     borderTopWidth: 1,
     borderBottomWidth: 1,
+    display: 'flex',
     flexDirection: 'row',
   },
   headerTitle: {
     fontSize: 13,
+    fontFamily: 'esamanru-light',
   },
   item: {
     padding: 12,
@@ -160,6 +173,9 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     textAlign: 'right',
+  },
+  binanceExchangeRatePrice: {
+    fontSize: 12,
   },
   upbitPriceRate: {
     flex: 0.7,
