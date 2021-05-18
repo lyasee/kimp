@@ -7,6 +7,7 @@ import useInterval from '../hooks/useInterval';
 import { coin } from '../stores/coin';
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
+import Footer from '../components/basic/Footer';
 
 export default function TabTwoScreen() {
   const colorScheme = useColorScheme();
@@ -18,7 +19,7 @@ export default function TabTwoScreen() {
 
   useInterval(() => {
     dispatch(fetchGetBitcoinRate());
-  }, 2000);
+  }, 1200);
 
   const getBitcoinPriceColor = (price: number, openPrice: number) => {
     if (price > openPrice) {
@@ -67,39 +68,41 @@ export default function TabTwoScreen() {
         </View>
       </View>
 
-      <View style={styles.boxWrapper}>
-        <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
-          <Text style={styles.boxTitle}>Upbit</Text>
-          <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
-            <Text style={styles.openPrice}>
-              open {coins['KRW-BTC'].trade_price.toLocaleString()}
-            </Text>
-            <Text
-              style={{
-                ...styles.rate,
-                color: getBitcoinPriceColor(
+      {coins['KRW-BTC'] && (
+        <View style={styles.boxWrapper}>
+          <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
+            <Text style={styles.boxTitle}>Upbit</Text>
+            <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
+              <Text style={styles.openPrice}>
+                open {coins['KRW-BTC'].trade_price.toLocaleString()}
+              </Text>
+              <Text
+                style={{
+                  ...styles.rate,
+                  color: getBitcoinPriceColor(
+                    coins['KRW-BTC'].trade_price,
+                    coins['KRW-BTC'].prev_closing_price,
+                  ),
+                }}>
+                {coins['KRW-BTC'].trade_price.toLocaleString()}
+              </Text>
+              <Text
+                style={{
+                  color: getBitcoinPriceColor(
+                    coins['KRW-BTC'].trade_price,
+                    coins['KRW-BTC'].prev_closing_price,
+                  ),
+                }}>
+                {getBitcoinPricePercentagMark(
                   coins['KRW-BTC'].trade_price,
                   coins['KRW-BTC'].prev_closing_price,
-                ),
-              }}>
-              {coins['KRW-BTC'].trade_price.toLocaleString()}
-            </Text>
-            <Text
-              style={{
-                color: getBitcoinPriceColor(
-                  coins['KRW-BTC'].trade_price,
-                  coins['KRW-BTC'].prev_closing_price,
-                ),
-              }}>
-              {getBitcoinPricePercentagMark(
-                coins['KRW-BTC'].trade_price,
-                coins['KRW-BTC'].prev_closing_price,
-              )}
-              {(coins['KRW-BTC'].change_rate * 100).toFixed(2)}%
-            </Text>
+                )}
+                {(coins['KRW-BTC'].change_rate * 100).toFixed(2)}%
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      )}
 
       <View style={styles.boxWrapper}>
         <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
@@ -113,6 +116,10 @@ export default function TabTwoScreen() {
           <Text style={styles.boxTitle}>Short</Text>
           <Text style={{ ...styles.rate, color: colors.priceFall }}>{rate.short}%</Text>
         </View>
+      </View>
+
+      <View style={styles.footer}>
+        <Footer />
       </View>
     </ScrollView>
   );
@@ -146,6 +153,7 @@ const styles = StyleSheet.create({
   boxTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+    fontFamily: 'esamanru-medium',
     color: '#ccc',
   },
   usd: {
@@ -165,5 +173,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 30,
     fontWeight: 'bold',
+  },
+  footer: {
+    padding: 20,
   },
 });
