@@ -3,9 +3,10 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useFonts } from 'expo-font';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
@@ -22,19 +23,24 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Premieum"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      tabBarOptions={{
+        activeTintColor: Colors[colorScheme].tint,
+        labelStyle: {
+          fontFamily: 'esamanru-medium',
+        },
+      }}>
       <BottomTab.Screen
         name="Premieum"
         component={TabOneNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="format-list-text" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Bitcoin"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bitcoin" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -43,8 +49,11 @@ export default function BottomTabNavigator() {
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
+  color: string;
+}) {
+  return <MaterialCommunityIcons size={24} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
@@ -57,7 +66,14 @@ function TabOneNavigator() {
       <TabOneStack.Screen
         name="TabOneScreen"
         component={TabOneScreen}
-        options={{ headerTitle: 'Kimchi Premieum', headerTitleAlign: 'left' }}
+        options={{
+          headerTitle: 'Kimp',
+          headerTitleAlign: 'left',
+          headerTitleStyle: {
+            fontFamily: 'esamanru-medium',
+            fontSize: 18,
+          },
+        }}
       />
     </TabOneStack.Navigator>
   );
@@ -71,7 +87,14 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Bitcoin', headerTitleAlign: 'left' }}
+        options={{
+          headerTitle: 'Bitcoin',
+          headerTitleAlign: 'left',
+          headerTitleStyle: {
+            fontFamily: 'esamanru-medium',
+            fontSize: 18,
+          },
+        }}
       />
     </TabTwoStack.Navigator>
   );
