@@ -16,6 +16,8 @@ export default function useCachedResources() {
         await Font.loadAsync({
           ...Ionicons.font,
           'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
+          'esamanru-medium': require('../assets/fonts/esamanru-Medium.ttf'),
+          'esamanru-light': require('../assets/fonts/esamanru-Light.ttf'),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
