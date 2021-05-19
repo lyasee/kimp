@@ -1,4 +1,4 @@
-import { call, put, flush, delay } from 'redux-saga/effects';
+import { call, put, flush, delay, takeLatest } from 'redux-saga/effects';
 import { buffers, eventChannel } from 'redux-saga';
 import { setItem } from './coin';
 import * as encoding from 'text-encoding';
@@ -14,7 +14,7 @@ const connectSocekt = (socket: WebSocket, buffer: any) => {
     socket.onopen = () => {
       socket.send(
         JSON.stringify([
-          { ticket: 'kimp-app-2021' + new Date().getTime() },
+          { ticket: 'kimp-app-2021' },
           {
             type: 'ticker',
             codes: [
@@ -171,10 +171,18 @@ const connectSocekt = (socket: WebSocket, buffer: any) => {
 
 const createConnectSocketSaga = () => {
   return function* (): any {
+    let count = 0;
     const client = yield call(createSocket);
     const clientChannel = yield call(connectSocekt, client, buffers.expanding(500));
 
     while (true) {
+      if (count > 5) {
+        client.send('PING');
+        count = 0;
+      }
+
+      count = count + 1;
+
       try {
         const datas = yield flush(clientChannel);
 
@@ -200,5 +208,6 @@ const createConnectSocketSaga = () => {
 const getCoinDataSaga = createConnectSocketSaga();
 
 export function* coinSaga() {
+  // yield takeLatest(setSocketConnected, getCoinDataSaga);
   yield getCoinDataSaga();
 }
