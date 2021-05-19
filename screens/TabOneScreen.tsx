@@ -87,7 +87,7 @@ export default function TabOneScreen() {
           <Text style={{ ...styles.kimchi, ...styles.headerTitle }}>김프</Text>
         </View>
 
-        {Object.keys(items)
+        {Object.keys(names)
           .filter((key) => names[key] && items[key])
           .map((key) => (
             <View key={key} style={{ ...styles.item, borderColor: colors.border }}>
