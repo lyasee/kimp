@@ -11,8 +11,10 @@ const ReferralListScreen = () => {
     <View style={styles.container}>
       <BackHeader title="수수료 할인" />
       <Notice text="원하는 거래소를 선택한 후 수수료 할인받으세요!" />
-      <ScrollView>
-        <CoinOneReferralBox />
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.boxWrapper}>
+          <CoinOneReferralBox />
+        </View>
         <View style={styles.boxWrapper}>
           <BinanceReferralBox />
         </View>
@@ -27,7 +29,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scrollView: {
+    paddingTop: 8,
+  },
   boxWrapper: {
-    marginTop: 1,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
 });

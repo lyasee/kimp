@@ -31,6 +31,7 @@ export default BinanceReferralBox;
 
 const styles = StyleSheet.create({
   container: {
+    borderRadius: 6,
     padding: 20,
     height: 80,
     flexDirection: 'row',
