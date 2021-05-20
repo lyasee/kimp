@@ -3,6 +3,7 @@ const tintColorDark = '#fff';
 
 export default {
   light: {
+    backHeaderIcon: tintColorLight,
     text: '#000',
     background: '#fff',
     tint: tintColorLight,
@@ -19,6 +20,7 @@ export default {
     binanceExchangeRatePrice: '#a9a9a9',
   },
   dark: {
+    backHeaderIcon: tintColorDark,
     text: '#fff',
     background: '#000',
     tint: tintColorDark,
