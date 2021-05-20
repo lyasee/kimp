@@ -17,7 +17,7 @@ const ReferralNotice = () => {
   return (
     <Notice
       Icon={<MaterialCommunityIcons name="sale" size={22} color={colors.noticeText} />}
-      text="거래소 수수료 할인코드 받기"
+      text="거래소 수수료 할인받기"
       onPress={handleGoReferralScreen}
     />
   );
