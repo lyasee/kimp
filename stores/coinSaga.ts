@@ -163,10 +163,6 @@ const connectSocket = (socket: WebSocket, buffer: any) => {
       } catch (error) {}
     };
 
-    socket.onerror = (event: WebSocketMessageEvent) => {
-      emit(event);
-    };
-
     const unsubscribe = () => {
       socket.close();
     };
