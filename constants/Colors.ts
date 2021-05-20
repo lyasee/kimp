@@ -18,6 +18,9 @@ export default {
     kimchiPercentage: '#339133',
     exchangeRate: '#999',
     binanceExchangeRatePrice: '#a9a9a9',
+    noticeBackground: '#141313',
+    noticeText: '#fff',
+    referralBox: '#fafafa',
   },
   dark: {
     backHeaderIcon: tintColorDark,
@@ -35,5 +38,8 @@ export default {
     kimchiPercentage: '#339133',
     exchangeRate: '#445',
     binanceExchangeRatePrice: '#5e5e5e',
+    noticeBackground: '#fff',
+    noticeText: '#141313',
+    referralBox: '#141313',
   },
 };

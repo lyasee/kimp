@@ -21,7 +21,7 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Premieum"
+      initialRouteName="Premium"
       tabBarOptions={{
         activeTintColor: Colors[colorScheme].tint,
         labelStyle: {
@@ -29,7 +29,7 @@ export default function BottomTabNavigator() {
         },
       }}>
       <BottomTab.Screen
-        name="Premieum"
+        name="Premium"
         component={TabOneNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="format-list-text" color={color} />,

@@ -7,10 +7,11 @@ export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
   TradingViewDominance: undefined;
+  ReferralList: undefined;
 };
 
 export type BottomTabParamList = {
-  Premieum: undefined;
+  Premium: undefined;
   Bitcoin: undefined;
 };
 

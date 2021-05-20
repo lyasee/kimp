@@ -14,6 +14,7 @@ import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import * as Analytics from 'expo-firebase-analytics';
+import ReferralListScreen from '../screens/ReferralListScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const navigationRef = React.useRef<any>(null);
@@ -58,6 +59,7 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={BottomTabNavigator} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Screen name="TradingViewDominance" component={TradingViewDominanceScreen} />
+      <Stack.Screen name="ReferralList" component={ReferralListScreen} />
     </Stack.Navigator>
   );
 }

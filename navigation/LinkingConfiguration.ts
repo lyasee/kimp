@@ -24,6 +24,8 @@ export default {
           },
         },
       },
+      ReferralList: 'referral',
+      TradingViewDominance: 'tradingViewDominance',
       NotFound: '*',
     },
   },

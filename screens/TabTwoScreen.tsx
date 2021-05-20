@@ -15,6 +15,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
 import Footer from '../components/basic/Footer';
 import { useNavigation } from '@react-navigation/core';
+import ReferralNotice from '../components/referral/ReferralNotice';
 
 export default function TabTwoScreen() {
   const navigation = useNavigation();
@@ -61,6 +62,7 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
+      <ReferralNotice />
       <ScrollView style={styles.scrollView}>
         <TouchableOpacity
           onPress={() => {
