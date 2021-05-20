@@ -26,9 +26,14 @@ export default function TabTwoScreen() {
   const coins = useSelector(coin);
   const dominance = useSelector(bitcoinDominance);
 
+  React.useEffect(() => {
+    dispatch(fetchGetBitcoinRate());
+    dispatch(fetchGetBitcoinBinance());
+  }, [dispatch]);
+
   useInterval(() => {
     dispatch(fetchGetBitcoinRate());
-  }, 1200);
+  }, 1500);
 
   useInterval(() => {
     dispatch(fetchGetBitcoinBinance());
@@ -73,13 +78,17 @@ export default function TabTwoScreen() {
                 <View
                   style={{ ...styles.dominanceTextWrapper, backgroundColor: colors.bitcoinBox }}>
                   <Text style={styles.dominanceLabel}>BTC</Text>
-                  <Text style={styles.dominancePercentage}>{dominance.btc.toString().trim()}%</Text>
+                  <Text style={styles.dominancePercentage}>
+                    {dominance.btc ? dominance.btc.toString().trim() : '0'}%
+                  </Text>
                 </View>
 
                 <View
                   style={{ ...styles.dominanceTextWrapper, backgroundColor: colors.bitcoinBox }}>
                   <Text style={styles.dominanceLabel}>, ETH</Text>
-                  <Text style={styles.dominancePercentage}>{dominance.eth.toString().trim()}%</Text>
+                  <Text style={styles.dominancePercentage}>
+                    {dominance.eth ? dominance.eth.toString().trim() : '0'}%
+                  </Text>
                 </View>
               </View>
 
