@@ -20,19 +20,19 @@ const BackHeader: React.FC<Props> = ({ title }) => {
   };
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
+    <SafeAreaView style={{ backgroundColor: colors.backHeader }}>
+      <View style={{ ...styles.container, backgroundColor: colors.backHeader }}>
         <TouchableOpacity
           onPress={handleBack}
           hitSlop={{ top: 16, left: 16, right: 16, bottom: 16 }}>
-          <View style={styles.backIcon}>
+          <View style={{ ...styles.backIcon, backgroundColor: colors.backHeader }}>
             <Ionicons name="ios-arrow-back" size={28} color={colors.backHeaderIcon} />
           </View>
         </TouchableOpacity>
 
         <Text style={styles.title}>{title}</Text>
 
-        <View style={styles.backIcon} />
+        <View style={{ ...styles.backIcon, backgroundColor: colors.backHeader }} />
       </View>
     </SafeAreaView>
   );

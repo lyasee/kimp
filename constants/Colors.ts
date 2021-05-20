@@ -3,6 +3,7 @@ const tintColorDark = '#fff';
 
 export default {
   light: {
+    backHeader: '#fff',
     backHeaderIcon: tintColorLight,
     text: '#000',
     background: '#fff',
@@ -20,9 +21,10 @@ export default {
     binanceExchangeRatePrice: '#a9a9a9',
     noticeBackground: '#141313',
     noticeText: '#fff',
-    referralBox: '#fafafa',
+    referralBox: '#f5f5f8',
   },
   dark: {
+    backHeader: '#141313',
     backHeaderIcon: tintColorDark,
     text: '#fff',
     background: '#000',
@@ -38,7 +40,7 @@ export default {
     kimchiPercentage: '#339133',
     exchangeRate: '#445',
     binanceExchangeRatePrice: '#5e5e5e',
-    noticeBackground: '#fff',
+    noticeBackground: '#f5f5f8',
     noticeText: '#141313',
     referralBox: '#141313',
   },
