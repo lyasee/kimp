@@ -14,14 +14,14 @@ export interface IPriceItem {
 }
 
 interface PricesState {
-  connected: boolean;
+  connected: string;
   names: ICoinName;
   item: IPriceItem;
   loading: boolean;
 }
 
 const initialState: PricesState = {
-  connected: false,
+  connected: '',
   names: {},
   item: {},
   loading: false,
@@ -31,7 +31,7 @@ export const coinSlice = createSlice({
   name: 'coin',
   initialState,
   reducers: {
-    setConnected: (state, action: PayloadAction<boolean>) => {
+    setConnected: (state, action: PayloadAction<string>) => {
       state.connected = action.payload;
     },
     setItem: (state, action: PayloadAction<IPriceItem>) => {
@@ -52,7 +52,7 @@ export const coinSlice = createSlice({
 export const { setConnected, setItem, setLoading, setNames } = coinSlice.actions;
 
 export const upbitConnect = (): AppThunk => async (dispatch) => {
-  dispatch(setConnected(true));
+  dispatch(setConnected(new Date().getTime().toString()));
 };
 
 export const fetchGetCoinNames = (): AppThunk => async (dispatch) => {

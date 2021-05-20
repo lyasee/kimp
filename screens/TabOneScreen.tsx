@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { AppState, ScrollView, StyleSheet } from 'react-native';
-import { AppStateStatus } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useDispatch, useSelector } from 'react-redux';
-import { coin, coinNames, fetchGetCoinNames, upbitConnect } from '../stores/coin';
+import { coin, coinNames, fetchGetCoinNames, setConnected, upbitConnect } from '../stores/coin';
 import { IWebSocketData } from '../types/coin.types';
 import { binancePrices, fetchGetBinancePrices } from '../stores/binance';
 import { currencyUSD, fetchGetCurrency } from '../stores/currency';
@@ -22,31 +21,12 @@ export default function TabOneScreen() {
   const usd = useSelector(currencyUSD);
 
   const appState = React.useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
 
   useFocusEffect(
     React.useCallback(() => {
-      dispatch(upbitConnect);
+      dispatch(setConnected(new Date().getTime().toString()));
     }, [dispatch]),
   );
-
-  React.useEffect(() => {
-    AppState.addEventListener('change', _handleAppStateChange);
-
-    return () => {
-      AppState.removeEventListener('change', _handleAppStateChange);
-    };
-  }, []);
-
-  const _handleAppStateChange = (nextAppState: AppStateStatus) => {
-    if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-      console.log('App has come to the foreground!');
-    }
-
-    appState.current = nextAppState;
-    setAppStateVisible(appState.current);
-    console.log('AppState', appState.current);
-  };
 
   React.useEffect(() => {
     dispatch(fetchGetCoinNames());

@@ -3,17 +3,16 @@ import { buffers, eventChannel } from 'redux-saga';
 import { setConnected, setItem } from './coin';
 import * as encoding from 'text-encoding';
 
-let _client = new WebSocket('wss://api.upbit.com/websocket/v1');
-_client.binaryType = 'arraybuffer';
-
 const createSocket = () => {
+  let _client = new WebSocket('wss://api.upbit.com/websocket/v1');
+  _client.binaryType = 'arraybuffer';
   return _client;
 };
 
 const sendSocket = (socket: WebSocket) => {
   socket.send(
     JSON.stringify([
-      { ticket: 'kimp-app-2021' },
+      { ticket: 'kimp-app-2021' + new Date().getTime() },
       {
         type: 'ticker',
         codes: [
@@ -152,15 +151,16 @@ const sendSocket = (socket: WebSocket) => {
 const connectSocket = (socket: WebSocket, buffer: any) => {
   return eventChannel((emit) => {
     socket.onopen = () => {
-      console.log('open');
       sendSocket(socket);
     };
 
     socket.onmessage = (event: WebSocketMessageEvent) => {
-      const enc = new encoding.TextDecoder('utf-8');
-      const arr = new Uint8Array(event.data);
-      const data = JSON.parse(enc.decode(arr));
-      emit(data);
+      try {
+        const enc = new encoding.TextDecoder('utf-8');
+        const arr = new Uint8Array(event.data);
+        const data = JSON.parse(enc.decode(arr));
+        emit(data);
+      } catch (error) {}
     };
 
     socket.onerror = (event: WebSocketMessageEvent) => {
@@ -211,13 +211,8 @@ const createConnectSocketSaga = () => {
 };
 
 const getCoinDataSaga = createConnectSocketSaga();
-const sendMessageSaga = () => {
-  return function* () {
-    sendSocket(_client);
-  };
-};
 
 export function* coinSaga() {
-  yield takeLatest(setConnected, sendMessageSaga);
+  yield takeLatest(setConnected, getCoinDataSaga);
   yield getCoinDataSaga();
 }
