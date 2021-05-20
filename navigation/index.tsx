@@ -13,12 +13,36 @@ import TradingViewDominanceScreen from '../screens/TradingViewDominanceScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import * as Analytics from 'expo-firebase-analytics';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const navigationRef = React.useRef<any>(null);
+  const routeNameRef = React.useRef<any>(null);
+
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+      ref={navigationRef}
+      onReady={() => {
+        if (routeNameRef && routeNameRef.current && navigationRef && navigationRef.current) {
+          routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+        }
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.current.getCurrentRoute().name;
+
+        if (previousRouteName !== currentRouteName) {
+          // The line below uses the expo-firebase-analytics tracker
+          // https://docs.expo.io/versions/latest/sdk/firebase-analytics/
+          // Change this line to use another Mobile analytics SDK
+          await Analytics.setCurrentScreen(currentRouteName);
+        }
+
+        // Save the current route name for later comparison
+        routeNameRef.current = currentRouteName;
+      }}>
       <RootNavigator />
     </NavigationContainer>
   );

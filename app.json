@@ -20,7 +20,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.lyasee.kimp",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "com.lyasee.kimp",
@@ -31,7 +32,18 @@
       }
     },
     "web": {
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyAPwjMbny-NBz9O4jL94Ui44tiXWXQ4x7w",
+          "authDomain": "kimp-fb790.firebaseapp.com",
+          "projectId": "kimp-fb790",
+          "storageBucket": "kimp-fb790.appspot.com",
+          "messagingSenderId": "541446020926",
+          "appId": "1:541446020926:web:e4aac647dfd6c65d23966f",
+          "measurementId": "G-7LRCM3PEZD"
+        }
+      }
     }
   }
 }
