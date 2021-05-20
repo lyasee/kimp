@@ -131,7 +131,7 @@ export default function TabTwoScreen() {
             <Text style={styles.boxTitle}>업비트</Text>
             <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
               <Text style={styles.openPrice}>
-                open {coins['KRW-BTC'].trade_price.toLocaleString()}
+                open {coins['KRW-BTC'].prev_closing_price.toLocaleString()}
               </Text>
               <Text
                 style={{
