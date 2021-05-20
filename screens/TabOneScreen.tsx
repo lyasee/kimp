@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { AppState, ScrollView, StyleSheet } from 'react-native';
+import { AppStateStatus } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useDispatch, useSelector } from 'react-redux';
-import { coin, coinNames, fetchGetCoinNames } from '../stores/coin';
+import { coin, coinNames, fetchGetCoinNames, upbitConnect } from '../stores/coin';
 import { IWebSocketData } from '../types/coin.types';
 import { binancePrices, fetchGetBinancePrices } from '../stores/binance';
 import { currencyUSD, fetchGetCurrency } from '../stores/currency';
 import useInterval from '../hooks/useInterval';
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
+import { useFocusEffect } from '@react-navigation/core';
 
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
@@ -18,6 +20,33 @@ export default function TabOneScreen() {
   const names = useSelector(coinNames);
   const binancePriceList = useSelector(binancePrices);
   const usd = useSelector(currencyUSD);
+
+  const appState = React.useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = React.useState(appState.current);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(upbitConnect);
+    }, [dispatch]),
+  );
+
+  React.useEffect(() => {
+    AppState.addEventListener('change', _handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener('change', _handleAppStateChange);
+    };
+  }, []);
+
+  const _handleAppStateChange = (nextAppState: AppStateStatus) => {
+    if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+      console.log('App has come to the foreground!');
+    }
+
+    appState.current = nextAppState;
+    setAppStateVisible(appState.current);
+    console.log('AppState', appState.current);
+  };
 
   React.useEffect(() => {
     dispatch(fetchGetCoinNames());

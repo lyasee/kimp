@@ -14,12 +14,14 @@ export interface IPriceItem {
 }
 
 interface PricesState {
+  connected: boolean;
   names: ICoinName;
   item: IPriceItem;
   loading: boolean;
 }
 
 const initialState: PricesState = {
+  connected: false,
   names: {},
   item: {},
   loading: false,
@@ -29,6 +31,9 @@ export const coinSlice = createSlice({
   name: 'coin',
   initialState,
   reducers: {
+    setConnected: (state, action: PayloadAction<boolean>) => {
+      state.connected = action.payload;
+    },
     setItem: (state, action: PayloadAction<IPriceItem>) => {
       state.item = {
         ...state.item,
@@ -44,7 +49,11 @@ export const coinSlice = createSlice({
   },
 });
 
-export const { setItem, setLoading, setNames } = coinSlice.actions;
+export const { setConnected, setItem, setLoading, setNames } = coinSlice.actions;
+
+export const upbitConnect = (): AppThunk => async (dispatch) => {
+  dispatch(setConnected(true));
+};
 
 export const fetchGetCoinNames = (): AppThunk => async (dispatch) => {
   const url = 'https://api.upbit.com/v1/market/all?isDetails=false';

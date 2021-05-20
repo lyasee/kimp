@@ -5,7 +5,7 @@ export default function useInterval(callback: () => void, timer: number) {
 
   useEffect(() => {
     savedCallback.current = callback;
-  }, []);
+  }, [callback]);
 
   useEffect(() => {
     function tick() {
@@ -14,5 +14,5 @@ export default function useInterval(callback: () => void, timer: number) {
 
     let id = setInterval(tick, timer || 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [timer]);
 }
