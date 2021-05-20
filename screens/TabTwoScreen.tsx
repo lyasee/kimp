@@ -60,7 +60,7 @@ export default function TabTwoScreen() {
   };
 
   return (
-    <ScrollView style={{ ...styles.container, backgroundColor: colors.background }}>
+    <ScrollView style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('TradingViewDominance');

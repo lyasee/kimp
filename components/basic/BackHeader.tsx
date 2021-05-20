@@ -1,9 +1,10 @@
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import useColorScheme from '../../hooks/useColorScheme';
 import Colors from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/core';
+import { View, Text } from '../Themed';
 
 type Props = {
   title?: string;
@@ -19,8 +20,8 @@ const BackHeader: React.FC<Props> = ({ title }) => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: colors.background }}>
-      <View style={{ ...styles.container, backgroundColor: colors.background }}>
+    <SafeAreaView>
+      <View style={styles.container}>
         <TouchableOpacity
           onPress={handleBack}
           hitSlop={{ top: 16, left: 16, right: 16, bottom: 16 }}>
@@ -29,7 +30,7 @@ const BackHeader: React.FC<Props> = ({ title }) => {
           </View>
         </TouchableOpacity>
 
-        <Text style={{ ...styles.title, color: '#000000' }}>{title}</Text>
+        <Text style={styles.title}>{title}</Text>
 
         <View style={styles.backIcon} />
       </View>
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   backIcon: {
     justifyContent: 'center',
     width: 80,
-    height: 48,
+    height: 47,
     paddingLeft: 16,
   },
   title: {
