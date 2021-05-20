@@ -1,25 +1,38 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGetBitcoinRate, bitcoinRate, bitcoinBinance } from '../stores/bitcoin';
+import {
+  fetchGetBitcoinRate,
+  bitcoinRate,
+  bitcoinBinance,
+  fetchGetBitcoinBinance,
+  bitcoinDominance,
+} from '../stores/bitcoin';
 import useInterval from '../hooks/useInterval';
 import { coin } from '../stores/coin';
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
 import Footer from '../components/basic/Footer';
+import { useNavigation } from '@react-navigation/core';
 
 export default function TabTwoScreen() {
+  const navigation = useNavigation();
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
   const dispatch = useDispatch();
   const rate = useSelector(bitcoinRate);
   const binance = useSelector(bitcoinBinance);
   const coins = useSelector(coin);
+  const dominance = useSelector(bitcoinDominance);
 
   useInterval(() => {
     dispatch(fetchGetBitcoinRate());
   }, 1200);
+
+  useInterval(() => {
+    dispatch(fetchGetBitcoinBinance());
+  }, 5000);
 
   const getBitcoinPriceColor = (price: number, openPrice: number) => {
     if (price > openPrice) {
@@ -43,9 +56,44 @@ export default function TabTwoScreen() {
 
   return (
     <ScrollView style={{ ...styles.container, backgroundColor: colors.background }}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('TradingViewDominance');
+        }}>
+        <View style={styles.boxWrapper}>
+          <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
+            <Text style={styles.boxTitle}>도미넌스</Text>
+            <View
+              style={{ ...styles.dominanceBox, backgroundColor: colors.bitcoinBox, marginTop: 8 }}>
+              <View
+                style={{
+                  ...styles.dominanceTextWrapper,
+                  backgroundColor: colors.bitcoinBox,
+                }}>
+                <View
+                  style={{ ...styles.dominanceTextWrapper, backgroundColor: colors.bitcoinBox }}>
+                  <Text style={styles.dominanceLabel}>BTC</Text>
+                  <Text style={styles.dominancePercentage}>{dominance.btc.toString().trim()}%</Text>
+                </View>
+
+                <View
+                  style={{ ...styles.dominanceTextWrapper, backgroundColor: colors.bitcoinBox }}>
+                  <Text style={styles.dominanceLabel}>, ETH</Text>
+                  <Text style={styles.dominancePercentage}>{dominance.eth.toString().trim()}%</Text>
+                </View>
+              </View>
+
+              <View style={{ backgroundColor: colors.bitcoinBox }}>
+                <Text style={styles.dominanceLabel}>차트보기</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+
       <View style={styles.boxWrapper}>
         <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
-          <Text style={styles.boxTitle}>Binance</Text>
+          <Text style={styles.boxTitle}>바이낸스</Text>
           <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
             <Text style={styles.openPrice}>
               open {binance.openPrice.toFixed(2).toLocaleString()}
@@ -71,7 +119,7 @@ export default function TabTwoScreen() {
       {coins['KRW-BTC'] && (
         <View style={styles.boxWrapper}>
           <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
-            <Text style={styles.boxTitle}>Upbit</Text>
+            <Text style={styles.boxTitle}>업비트</Text>
             <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
               <Text style={styles.openPrice}>
                 open {coins['KRW-BTC'].trade_price.toLocaleString()}
@@ -144,6 +192,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingTop: 8,
     paddingBottom: 8,
+    zIndex: 1,
   },
   box: {
     flex: 1,
@@ -154,13 +203,38 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontFamily: 'esamanru-medium',
-    color: '#ccc',
+    color: '#c4c4c4',
   },
   usd: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#ccc',
     marginLeft: 8,
+  },
+  dominanceBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  dominanceTextWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 4,
+  },
+  dominanceLabel: {
+    marginRight: 4,
+    color: '#ccc',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  dominancePercentage: {
+    color: '#bdbdbd',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  dominanceMoreText: {
+    fontFamily: 'esamanru-light',
+    color: '#ccc',
   },
   priceWrapper: {
     alignItems: 'flex-end',

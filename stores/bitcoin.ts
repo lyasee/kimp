@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk, RootState } from './index';
+import axios from 'axios';
+import cheerio from 'react-native-cheerio';
 
 interface IBinance {
   price: number;
@@ -12,9 +14,15 @@ interface IBitcoinRate {
   short: number;
 }
 
+interface Bianance {
+  btc: number;
+  eth: number;
+}
+
 interface BitcoinState {
   binance: IBinance;
   rate: IBitcoinRate;
+  dominance: Bianance;
 }
 
 const initialState: BitcoinState = {
@@ -26,6 +34,10 @@ const initialState: BitcoinState = {
   rate: {
     long: 50,
     short: 50,
+  },
+  dominance: {
+    btc: 0,
+    eth: 0,
   },
 };
 
@@ -39,10 +51,31 @@ export const bitcoinSlice = createSlice({
     setBinance: (state, action: PayloadAction<IBinance>) => {
       state.binance = action.payload;
     },
+    setDominance: (state, action: PayloadAction<Bianance>) => {
+      state.dominance = action.payload;
+    },
   },
 });
 
-export const { setRate, setBinance } = bitcoinSlice.actions;
+export const { setRate, setBinance, setDominance } = bitcoinSlice.actions;
+
+export const fetchGetBitcoinBinance = (): AppThunk => async (dispatch) => {
+  try {
+    const url = 'https://coinmarketcap.com/charts/';
+    const res = await axios.get(url);
+    const $ = cheerio.load(res.data);
+    const result = $(
+      '#__next > div.sc-1mezg3x-0.fHFmDM.cmc-app-wrapper.cmc-app-wrapper--env-prod.cmc-theme--day > div.sc-1mezg3x-1.fxStDx > div.xwtbyq-0.iGclcX.cmc-bottom-margin-1x.cmc-header-desktop > div.sc-33i2yg-0.dOnegn > div > div:nth-child(1) > span:nth-child(5) > a',
+    ).text();
+    const text = result
+      .replace(/%/gi, '')
+      .replace('BTC: ', '')
+      .replace('ETH: ', ',')
+      .replace(/ /gi, '');
+    const [btc, eth] = text.split(',');
+    dispatch(setDominance({ btc, eth }));
+  } catch (error) {}
+};
 
 export const fetchGetBitcoinRate = (): AppThunk => async (dispatch) => {
   const url = 'https://fapi.bybt.com/api/futures/longShortRate?timeType=3&symbol=BTC';
@@ -91,5 +124,6 @@ export const fetchGetBitcoinRate = (): AppThunk => async (dispatch) => {
 
 export const bitcoinRate = (state: RootState) => state.bitcoin.rate;
 export const bitcoinBinance = (state: RootState) => state.bitcoin.binance;
+export const bitcoinDominance = (state: RootState) => state.bitcoin.dominance;
 
 export default bitcoinSlice.reducer;
