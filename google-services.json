@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "541446020926",
+    "project_id": "kimp-fb790",
+    "storage_bucket": "kimp-fb790.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541446020926:android:2365e1d0d0efb6f623966f",
+        "android_client_info": {
+          "package_name": "com.lyasee.kimp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541446020926-iso3963n5l758bdgisq0fl7is97453t8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lyasee.kimp",
+            "certificate_hash": "c04959679ec77cd5387166b09d88e0370a189f9e"
+          }
+        },
+        {
+          "client_id": "541446020926-m1tljr0e4lfsl34vej5hcot7kbis6v9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoszRnSK58R8c6QJLVv4TTWCcDZeDXBYc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541446020926-m1tljr0e4lfsl34vej5hcot7kbis6v9q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "541446020926-pbl2defcraa6fehqolg5ov94abhkcmf7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lyasee.kimp",
+                "app_store_id": "1568439882"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

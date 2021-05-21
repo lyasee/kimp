@@ -20,12 +20,13 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.lyasee.kimp",
-      "buildNumber": "1.0.0",
+      "buildNumber": "2",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "com.lyasee.kimp",
-      "versionCode": 1,
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000"
