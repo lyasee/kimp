@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppState, ScrollView, StyleSheet } from 'react-native';
+import { AppState, AppStateStatus, ScrollView, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useDispatch, useSelector } from 'react-redux';
 import { coin, coinNames, fetchGetCoinNames, setConnected, upbitConnect } from '../stores/coin';
@@ -22,11 +22,27 @@ export default function TabOneScreen() {
 
   const appState = React.useRef(AppState.currentState);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      dispatch(setConnected(new Date().getTime().toString()));
-    }, [dispatch]),
-  );
+  React.useEffect(() => {
+    AppState.addEventListener('change', _handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener('change', _handleAppStateChange);
+    };
+  }, []);
+
+  const _handleAppStateChange = (nextAppState: AppStateStatus) => {
+    if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+      getData();
+    }
+
+    appState.current = nextAppState;
+  };
+
+  const getData = React.useCallback(() => {
+    dispatch(setConnected(new Date().getTime().toString()));
+  }, [dispatch]);
+
+  useFocusEffect(getData);
 
   React.useEffect(() => {
     dispatch(fetchGetCoinNames());
