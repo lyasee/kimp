@@ -10,6 +10,7 @@ import useInterval from '../hooks/useInterval';
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
 import { useFocusEffect } from '@react-navigation/core';
+import { toLocaleString } from '../utils/number';
 
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
@@ -123,7 +124,7 @@ export default function TabOneScreen() {
                   ...styles.upbitPrice,
                   color: getPriceColor(items[key]),
                 }}>
-                {Number(items[key].trade_price).toLocaleString()}
+                {toLocaleString(Number(items[key].trade_price))}
                 <Text
                   style={{
                     ...styles.binanceExchangeRatePrice,
@@ -131,12 +132,14 @@ export default function TabOneScreen() {
                   }}>
                   {'\n'}
                   {binancePriceList[key.replace('KRW-', '')]
-                    ? Number(
-                        (
-                          binancePriceList[key.replace('KRW-', '')].price *
-                          (usd ? usd.basePrice : 0)
-                        ).toFixed(0),
-                      ).toLocaleString()
+                    ? toLocaleString(
+                        Number(
+                          (
+                            binancePriceList[key.replace('KRW-', '')].price *
+                            (usd ? usd.basePrice : 0)
+                          ).toFixed(0),
+                        ),
+                      )
                     : 0}
                 </Text>
               </Text>

@@ -16,6 +16,7 @@ import Colors from '../constants/Colors';
 import Footer from '../components/basic/Footer';
 import { useNavigation } from '@react-navigation/core';
 import ReferralNotice from '../components/referral/ReferralNotice';
+import { toLocaleString } from '../utils/number';
 
 export default function TabTwoScreen() {
   const navigation = useNavigation();
@@ -112,14 +113,14 @@ export default function TabTwoScreen() {
             <Text style={styles.boxTitle}>바이낸스</Text>
             <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
               <Text style={styles.openPrice}>
-                open {binance.openPrice.toFixed(2).toLocaleString()}
+                open {toLocaleString(Number(binance.openPrice.toFixed(2)))}
               </Text>
               <Text
                 style={{
                   ...styles.rate,
                   color: getBitcoinPriceColor(binance.price, binance.openPrice),
                 }}>
-                {binance.price.toFixed(2).toLocaleString()}
+                {toLocaleString(Number(binance.price.toFixed(2)))}
               </Text>
               <Text
                 style={{
@@ -138,7 +139,7 @@ export default function TabTwoScreen() {
               <Text style={styles.boxTitle}>업비트</Text>
               <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
                 <Text style={styles.openPrice}>
-                  open {coins['KRW-BTC'].prev_closing_price.toLocaleString()}
+                  open {toLocaleString(coins['KRW-BTC'].prev_closing_price)}
                 </Text>
                 <Text
                   style={{
@@ -148,7 +149,7 @@ export default function TabTwoScreen() {
                       coins['KRW-BTC'].prev_closing_price,
                     ),
                   }}>
-                  {coins['KRW-BTC'].trade_price.toLocaleString()}
+                  {toLocaleString(coins['KRW-BTC'].trade_price)}
                 </Text>
                 <Text
                   style={{
