@@ -4,7 +4,7 @@
     "slug": "kimp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/adaptive-icon.png",
     "scheme": "kimp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -25,11 +25,16 @@
       "associatedDomains": ["applinks:kimpapp.page.link"]
     },
     "android": {
+      "splash": {
+        "image": "./assets/images/splash.png"
+      },
+      "icon": "./assets/images/adaptive-icon.png",
       "package": "com.lyasee.kimp",
       "googleServicesFile": "./google-services.json",
       "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000"
       },
       "intentFilters": [
