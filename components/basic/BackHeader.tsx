@@ -1,10 +1,11 @@
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import useColorScheme from '../../hooks/useColorScheme';
 import Colors from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/core';
 import { View, Text } from '../Themed';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = {
   title?: string;
@@ -42,7 +43,7 @@ export default BackHeader;
 
 const styles = StyleSheet.create({
   container: {
-    height: 48,
+    minHeight: 48,
     borderBottomWidth: 1,
     borderColor: '#f2f2f5',
     flexDirection: 'row',
