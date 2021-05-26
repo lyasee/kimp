@@ -2,7 +2,7 @@
   "expo": {
     "name": "김프",
     "slug": "kimp",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/adaptive-icon.png",
     "scheme": "kimp",
@@ -20,7 +20,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.lyasee.kimp",
-      "buildNumber": "2",
+      "buildNumber": "1",
       "googleServicesFile": "./GoogleService-Info.plist",
       "associatedDomains": ["applinks:kimpapp.page.link"]
     },
@@ -31,7 +31,7 @@
       "icon": "./assets/images/adaptive-icon.png",
       "package": "com.lyasee.kimp",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundImage": "./assets/images/adaptive-icon.png",
