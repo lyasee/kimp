@@ -22,6 +22,7 @@ export default {
     noticeBackground: '#141313',
     noticeText: '#fff',
     referralBox: '#f5f5f8',
+    footerText: '#999',
   },
   dark: {
     backHeader: '#141313',
@@ -43,5 +44,6 @@ export default {
     noticeBackground: '#f5f5f8',
     noticeText: '#141313',
     referralBox: '#141313',
+    footerText: '#445',
   },
 };

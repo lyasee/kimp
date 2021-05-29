@@ -3,16 +3,22 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import TabLeaderBoardScreen from '../screens/TabLeaderBoardScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import {
+  BottomTabParamList,
+  TabOneParamList,
+  TabTwoParamList,
+  TabLeaderBoardParamList,
+} from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -42,6 +48,13 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="bitcoin" color={color} />,
         }}
       />
+      <BottomTab.Screen
+        name="리더보드"
+        component={TabLeaderBoardNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarMaterialIcon name="leaderboard" color={color} />,
+        }}
+      />
     </BottomTab.Navigator>
   );
 }
@@ -53,6 +66,13 @@ function TabBarIcon(props: {
   color: string;
 }) {
   return <MaterialCommunityIcons size={24} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function TabBarMaterialIcon(props: {
+  name: React.ComponentProps<typeof MaterialIcons>['name'];
+  color: string;
+}) {
+  return <MaterialIcons size={24} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
@@ -96,5 +116,26 @@ function TabTwoNavigator() {
         }}
       />
     </TabTwoStack.Navigator>
+  );
+}
+
+const TabLeaderBoardStack = createStackNavigator<TabLeaderBoardParamList>();
+
+function TabLeaderBoardNavigator() {
+  return (
+    <TabLeaderBoardStack.Navigator>
+      <TabLeaderBoardStack.Screen
+        name="TabLeaderBoardScreen"
+        component={TabLeaderBoardScreen}
+        options={{
+          headerTitle: 'LeaderBoard',
+          headerTitleAlign: 'left',
+          headerTitleStyle: {
+            fontFamily: 'esamanru-medium',
+            fontSize: 18,
+          },
+        }}
+      />
+    </TabLeaderBoardStack.Navigator>
   );
 }

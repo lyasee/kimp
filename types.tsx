@@ -13,6 +13,7 @@ export type RootStackParamList = {
 export type BottomTabParamList = {
   Premium: undefined;
   Bitcoin: undefined;
+  리더보드: undefined;
 };
 
 export type TabOneParamList = {
@@ -21,4 +22,8 @@ export type TabOneParamList = {
 
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
+};
+
+export type TabLeaderBoardParamList = {
+  TabLeaderBoardScreen: undefined;
 };
