@@ -8,10 +8,11 @@ import { View, Text } from '../Themed';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = {
+  border?: boolean;
   title?: string;
 };
 
-const BackHeader: React.FC<Props> = ({ title }) => {
+const BackHeader: React.FC<Props> = ({ border, title }) => {
   const navigation = useNavigation();
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
@@ -21,8 +22,14 @@ const BackHeader: React.FC<Props> = ({ title }) => {
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: colors.backHeader }}>
-      <View style={{ ...styles.container, backgroundColor: colors.backHeader }}>
+    <SafeAreaView style={{ backgroundColor: colors.backHeader }} edges={['top']}>
+      <View
+        style={{
+          ...styles.container,
+          backgroundColor: colors.backHeader,
+          borderBottomWidth: border ? 1 : 0,
+          borderColor: colors.border,
+        }}>
         <TouchableOpacity
           onPress={handleBack}
           hitSlop={{ top: 16, left: 16, right: 16, bottom: 16 }}>
@@ -43,9 +50,7 @@ export default BackHeader;
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: 48,
-    borderBottomWidth: 1,
-    borderColor: '#f2f2f5',
+    minHeight: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -53,7 +58,6 @@ const styles = StyleSheet.create({
   backIcon: {
     justifyContent: 'center',
     width: 80,
-    height: 47,
     paddingLeft: 16,
   },
   title: {
