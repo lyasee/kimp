@@ -11,7 +11,7 @@ const ReferralNotice = () => {
   const colors = Colors[colorScheme];
 
   const handleGoReferralScreen = () => {
-    navigation.navigate('ReferralList');
+    navigation.navigate('ReferralListScreen');
   };
 
   return (

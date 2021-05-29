@@ -6,8 +6,6 @@
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
-  TradingViewDominance: undefined;
-  ReferralList: undefined;
 };
 
 export type BottomTabParamList = {
@@ -22,6 +20,9 @@ export type TabOneParamList = {
 
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
+  TradingViewBinanceBtcChartScreen: undefined;
+  TradingViewDominanceScreen: undefined;
+  ReferralListScreen: undefined;
 };
 
 export type TabLeaderBoardParamList = {

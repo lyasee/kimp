@@ -67,7 +67,7 @@ export default function TabTwoScreen() {
       <ScrollView style={styles.scrollView}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('TradingViewDominance');
+            navigation.navigate('TradingViewDominanceScreen');
           }}>
           <View style={styles.boxWrapper}>
             <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
@@ -108,30 +108,37 @@ export default function TabTwoScreen() {
           </View>
         </TouchableOpacity>
 
-        <View style={styles.boxWrapper}>
-          <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
-            <Text style={styles.boxTitle}>바이낸스</Text>
-            <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
-              <Text style={styles.openPrice}>
-                open {toLocaleString(Number(binance.openPrice.toFixed(2)))}
-              </Text>
-              <Text
-                style={{
-                  ...styles.rate,
-                  color: getBitcoinPriceColor(binance.price, binance.openPrice),
-                }}>
-                {toLocaleString(Number(binance.price.toFixed(2)))}
-              </Text>
-              <Text
-                style={{
-                  color: getBitcoinPriceColor(binance.price, binance.openPrice),
-                }}>
-                {getBitcoinPricePercentagMark(binance.price, binance.openPrice)}
-                {Math.abs(binance.priceChangePercent)}%
-              </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('TradingViewBinanceBtcChartScreen');
+          }}>
+          <View style={styles.boxWrapper}>
+            <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
+              <Text style={styles.boxTitle}>바이낸스</Text>
+              <View style={{ ...styles.priceWrapper, backgroundColor: colors.bitcoinBox }}>
+                <Text style={styles.openPrice}>
+                  open {toLocaleString(Number(binance.openPrice.toFixed(2)))}
+                </Text>
+                <Text
+                  style={{
+                    ...styles.rate,
+                    color: getBitcoinPriceColor(binance.price, binance.openPrice),
+                  }}>
+                  {toLocaleString(Number(binance.price.toFixed(2)))}
+                </Text>
+                <Text
+                  style={{
+                    color: getBitcoinPriceColor(binance.price, binance.openPrice),
+                  }}>
+                  {getBitcoinPricePercentagMark(binance.price, binance.openPrice)}
+                  {Math.abs(binance.priceChangePercent)}%
+                </Text>
+
+                <Text style={styles.binanceChartLabel}>차트보기</Text>
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
 
         {coins['KRW-BTC'] && (
           <View style={styles.boxWrapper}>
@@ -231,6 +238,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#ccc',
     marginLeft: 8,
+  },
+  binanceChartLabel: {
+    marginTop: 8,
+    marginRight: 4,
+    color: '#ccc',
+    fontSize: 12,
+    fontWeight: '600',
   },
   dominanceBox: {
     flexDirection: 'row',

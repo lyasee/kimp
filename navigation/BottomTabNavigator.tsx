@@ -10,9 +10,12 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import ReferralListScreen from '../screens/ReferralListScreen';
 import TabLeaderBoardScreen from '../screens/TabLeaderBoardScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import TradingViewBinanceBtcChartScreen from '../screens/TradingViewBinanceBtcChartScreen';
+import TradingViewDominanceScreen from '../screens/TradingViewDominanceScreen';
 import {
   BottomTabParamList,
   TabOneParamList,
@@ -113,6 +116,27 @@ function TabTwoNavigator() {
             fontFamily: 'esamanru-medium',
             fontSize: 18,
           },
+        }}
+      />
+      <TabTwoStack.Screen
+        name="TradingViewDominanceScreen"
+        component={TradingViewDominanceScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <TabTwoStack.Screen
+        name="ReferralListScreen"
+        component={ReferralListScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <TabTwoStack.Screen
+        name="TradingViewBinanceBtcChartScreen"
+        component={TradingViewBinanceBtcChartScreen}
+        options={{
+          headerShown: false,
         }}
       />
     </TabTwoStack.Navigator>
