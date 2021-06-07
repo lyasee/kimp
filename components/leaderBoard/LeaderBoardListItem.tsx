@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Linking, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import Colors from '../../constants/Colors';
 import useColorScheme from '../../hooks/useColorScheme';
 import { ILeaderBoard } from '../../types/leaderBoard';
@@ -10,9 +10,10 @@ import { Foundation, AntDesign } from '@expo/vector-icons';
 type Props = {
   rank: number;
   item: ILeaderBoard;
+  onPressName?: (item: ILeaderBoard) => void;
 };
 
-const LeaderBoardListItem: React.FC<Props> = ({ rank, item }) => {
+const LeaderBoardListItem: React.FC<Props> = ({ rank, item, onPressName }) => {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
 
@@ -36,7 +37,7 @@ const LeaderBoardListItem: React.FC<Props> = ({ rank, item }) => {
   };
 
   const handlePressName = () => {
-    Linking.openURL(`https://bybt.com/Leaderboard/${item.id}`);
+    onPressName && onPressName(item);
   };
 
   return (

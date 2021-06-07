@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -17,6 +17,12 @@ import Footer from '../components/basic/Footer';
 import { useNavigation } from '@react-navigation/core';
 import ReferralNotice from '../components/referral/ReferralNotice';
 import { toLocaleString } from '../utils/number';
+import { AdMobInterstitial } from 'expo-ads-admob';
+import {
+  activeDominanceBoxAdmob,
+  dominanceBoxAdmob,
+  setIncrementDominanceAdmobCount,
+} from '../stores/admob';
 
 export default function TabTwoScreen() {
   const navigation = useNavigation();
@@ -27,6 +33,8 @@ export default function TabTwoScreen() {
   const binance = useSelector(bitcoinBinance);
   const coins = useSelector(coin);
   const dominance = useSelector(bitcoinDominance);
+  const dominanceBoxAD = useSelector(dominanceBoxAdmob);
+  const activeDominanceBoxAD = useSelector(activeDominanceBoxAdmob);
 
   React.useEffect(() => {
     dispatch(fetchGetBitcoinRate());
@@ -61,14 +69,43 @@ export default function TabTwoScreen() {
     }
   };
 
+  const dominanceAdmobOpenHandler = async () => {
+    if (Platform.OS !== 'ios') {
+      tradkingViewScreenOpenHandler();
+      return;
+    }
+
+    dispatch(setIncrementDominanceAdmobCount());
+
+    if (activeDominanceBoxAD) {
+      AdMobInterstitial.removeAllListeners();
+      await AdMobInterstitial.setAdUnitID(dominanceBoxAD.unitId);
+      await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+      await AdMobInterstitial.showAdAsync();
+      AdMobInterstitial.addEventListener('interstitialDidClose', tradkingViewScreenOpenHandler);
+      return;
+    }
+
+    tradkingViewScreenOpenHandler();
+  };
+
+  const tradkingViewScreenOpenHandler = () => {
+    navigation.navigate('TradingViewDominanceScreen');
+  };
+
+  const handlePressTradingViewDominance = async () => {
+    await dominanceAdmobOpenHandler();
+  };
+
+  const handlePressBinanceBox = () => {
+    navigation.navigate('TradingViewBinanceBtcChartScreen');
+  };
+
   return (
     <View style={styles.container}>
       <ReferralNotice />
       <ScrollView style={styles.scrollView}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('TradingViewDominanceScreen');
-          }}>
+        <TouchableOpacity onPress={handlePressTradingViewDominance}>
           <View style={styles.boxWrapper}>
             <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
               <Text style={styles.boxTitle}>도미넌스</Text>
@@ -108,10 +145,7 @@ export default function TabTwoScreen() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('TradingViewBinanceBtcChartScreen');
-          }}>
+        <TouchableOpacity onPress={handlePressBinanceBox}>
           <View style={styles.boxWrapper}>
             <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
               <Text style={styles.boxTitle}>바이낸스</Text>

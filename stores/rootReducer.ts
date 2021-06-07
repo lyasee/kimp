@@ -5,6 +5,7 @@ import bitcoin from './bitcoin';
 import binance from './binance';
 import currency from './currency';
 import leaderBoard from './leaderBoard';
+import admob from './admob';
 import { coinSaga } from './coinSaga';
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   binance,
   currency,
   leaderBoard,
+  admob,
 });
 
 export function* rootSaga() {

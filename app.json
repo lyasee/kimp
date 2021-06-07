@@ -22,7 +22,13 @@
       "bundleIdentifier": "com.lyasee.kimp",
       "buildNumber": "1",
       "googleServicesFile": "./GoogleService-Info.plist",
-      "associatedDomains": ["applinks:kimpapp.page.link"]
+      "infoPlist": {
+        "NSUserTrackingUsageDescription": "앱이 타겟광고게재 추적 목적으로 IDFA에 접근하려고 합니다."
+      },
+      "associatedDomains": ["applinks:kimpapp.page.link"],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-8271789671155671~8184729041"
+      }
     },
     "android": {
       "splash": {

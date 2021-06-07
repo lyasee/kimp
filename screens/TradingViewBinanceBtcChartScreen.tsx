@@ -11,7 +11,7 @@ const TradingViewBinanceBtcChartScreen = () => {
   const options = {
     autosize: true,
     symbol: 'BINANCEUS:BTCBUSD',
-    interval: '15',
+    interval: '240',
     timezone: 'Asia/Seoul',
     theme: colorScheme,
     style: '1',
@@ -29,18 +29,18 @@ const TradingViewBinanceBtcChartScreen = () => {
         source={{
           html: `
           <html>
-            <head>
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            </head>
-            <body style="margin:0;">
-              <div class="tradingview-widget-container">
-                <div id="tradingview_58d94"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                <script type="text/javascript">
-                  new TradingView.widget(${JSON.stringify(options)});
-                </script>
-              </div>
-            </body>
+          <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="margin:0;">
+          <div class="tradingview-widget-container">
+          <div id="tradingview_58d94"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+          <script type="text/javascript">
+          new TradingView.widget(${JSON.stringify(options)});
+          </script>
+          </div>
+          </body>
           </html>
           `,
         }}

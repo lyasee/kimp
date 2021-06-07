@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AppState, AppStateStatus, ScrollView, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useDispatch, useSelector } from 'react-redux';
-import { coin, coinNames, fetchGetCoinNames, setConnected, upbitConnect } from '../stores/coin';
+import { coin, coinNames, fetchGetCoinNames, setConnected } from '../stores/coin';
 import { IWebSocketData } from '../types/coin.types';
 import { binancePrices, fetchGetBinancePrices } from '../stores/binance';
 import { currencyUSD, fetchGetCurrency } from '../stores/currency';
@@ -11,6 +11,8 @@ import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
 import { useFocusEffect } from '@react-navigation/core';
 import { toLocaleString } from '../utils/number';
+import ListTopBannerAdmob from '../components/admob/ListTopBannerAdmob';
+import { requestPermissionsAsync } from 'expo-ads-admob';
 
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
@@ -22,6 +24,14 @@ export default function TabOneScreen() {
   const usd = useSelector(currencyUSD);
 
   const appState = React.useRef(AppState.currentState);
+
+  React.useEffect(() => {
+    const init = async () => {
+      await requestPermissionsAsync();
+    };
+
+    init();
+  }, []);
 
   React.useEffect(() => {
     AppState.addEventListener('change', _handleAppStateChange);
@@ -91,6 +101,7 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
+      <ListTopBannerAdmob />
       <ScrollView>
         <View style={styles.topDescriptionWrapper}>
           <Text style={{ ...styles.description, color: colors.exchangeRate }}>
