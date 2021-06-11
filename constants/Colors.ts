@@ -1,5 +1,5 @@
 const tintColorLight = '#141313';
-const tintColorDark = '#fff';
+const tintColorDark = '#f2f2f2';
 
 export default {
   light: {
@@ -23,11 +23,13 @@ export default {
     noticeText: '#fff',
     referralBox: '#f5f5f8',
     footerText: '#999',
+    sortActive: '#000',
+    sortInActive: '#ccc',
   },
   dark: {
     backHeader: '#141313',
     backHeaderIcon: tintColorDark,
-    text: '#fff',
+    text: '#f2f2f2',
     background: '#000',
     tint: tintColorDark,
     tabIconDefault: '#ccc',
@@ -45,5 +47,7 @@ export default {
     noticeText: '#141313',
     referralBox: '#141313',
     footerText: '#445',
+    sortActive: '#fafafa',
+    sortInActive: '#454545',
   },
 };

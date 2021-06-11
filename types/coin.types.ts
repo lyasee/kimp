@@ -1,3 +1,22 @@
+export enum Sort {
+  NONE = '',
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export enum SortType {
+  없음 = '',
+  이름 = 'name',
+  가격 = 'trade_price',
+  김프 = 'kimp',
+  전일대비 = 'prev_closing_price',
+}
+
+export interface ITableSort {
+  type: SortType;
+  sort: Sort;
+}
+
 export interface IWebSocketData {
   type: string;
   code: string;
