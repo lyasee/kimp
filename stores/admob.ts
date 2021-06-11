@@ -15,7 +15,7 @@ interface AdmobState {
   dominanceBoxAdmob: AdmobSlot;
 }
 
-const isDev = false;
+const isDev = __DEV__;
 
 const initialState: AdmobState = {
   coinListTopBannerAdmob: {
