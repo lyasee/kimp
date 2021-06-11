@@ -267,16 +267,21 @@ const styles = StyleSheet.create({
     fontFamily: 'esamanru-light',
   },
   header: {
-    padding: 12,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingLeft: 12,
+    paddingRight: 12,
   },
   headerTitle: {
     fontSize: 13,
     fontFamily: 'esamanru-light',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   item: {
     padding: 12,
