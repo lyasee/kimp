@@ -64,11 +64,10 @@ export const fetchGetBitcoinBinance = (): AppThunk => async (dispatch) => {
     const url = 'https://coinmarketcap.com/charts/';
     const res = await axios.get(url);
     const $ = cheerio.load(res.data);
-    const result = $(
-      '#__next > div.sc-1mezg3x-0.fHFmDM.cmc-app-wrapper.cmc-app-wrapper--env-prod.cmc-theme--day > div.sc-1mezg3x-1.fxStDx > div.xwtbyq-0.iGclcX.cmc-bottom-margin-1x.cmc-header-desktop > div.sc-33i2yg-0.dOnegn > div > div:nth-child(1) > span:nth-child(5) > a',
-    ).text();
+    const result = $('.cmc-header-desktop > div > div > div > span:nth-child(5)').text();
     const text = result
       .replace(/%/gi, '')
+      .replace('Dominance:', '')
       .replace('BTC: ', '')
       .replace('ETH: ', ',')
       .replace(/ /gi, '');
