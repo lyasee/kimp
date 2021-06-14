@@ -13,6 +13,7 @@ interface AdmobState {
   leaderBoardTopBannerAdmob: AdmobSlot;
   leaderBoardLinkAdmob: AdmobSlot;
   dominanceBoxAdmob: AdmobSlot;
+  twitterTabAdmob: AdmobSlot;
 }
 
 const isDev = __DEV__;
@@ -54,6 +55,15 @@ const initialState: AdmobState = {
       : '',
     count: 0,
   },
+  twitterTabAdmob: {
+    name: '트위터 탭 이동 시',
+    unitId: isDev
+      ? 'ca-app-pub-3940256099942544/4411468910'
+      : Platform.OS === 'ios'
+      ? 'ca-app-pub-8271789671155671/6041781436'
+      : '',
+    count: 0,
+  },
 };
 
 export const admobSlice = createSlice({
@@ -66,10 +76,17 @@ export const admobSlice = createSlice({
         count: state.dominanceBoxAdmob.count + 1,
       };
     },
+    setIncrementTwitterTabAdmobCount: (state) => {
+      state.twitterTabAdmob = {
+        ...state.twitterTabAdmob,
+        count: state.twitterTabAdmob.count + 1,
+      };
+    },
   },
 });
 
-export const { setIncrementDominanceAdmobCount } = admobSlice.actions;
+export const { setIncrementDominanceAdmobCount, setIncrementTwitterTabAdmobCount } =
+  admobSlice.actions;
 
 export const coinListTopBannerAdmob = (state: RootState) => state.admob.coinListTopBannerAdmob;
 export const leaderBoardTopBannerAdmob = (state: RootState) =>
@@ -78,6 +95,10 @@ export const leaderBoardLinkAdmob = (state: RootState) => state.admob.leaderBoar
 export const dominanceBoxAdmob = (state: RootState) => state.admob.dominanceBoxAdmob;
 export const activeDominanceBoxAdmob = (state: RootState) => {
   return !state.admob.dominanceBoxAdmob.count || state.admob.dominanceBoxAdmob.count % 2 === 0;
+};
+export const twitterTabAdmob = (state: RootState) => state.admob.twitterTabAdmob;
+export const activeTwitterTabAdmob = (state: RootState) => {
+  return !state.admob.twitterTabAdmob.count || state.admob.twitterTabAdmob.count % 3 === 0;
 };
 
 export default admobSlice.reducer;

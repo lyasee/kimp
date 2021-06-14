@@ -25,6 +25,9 @@ export default {
     footerText: '#999',
     sortActive: '#000',
     sortInActive: '#ccc',
+    tabActive: '#000',
+    tabInActive: '#ccc',
+    description: '#a9a9a9',
   },
   dark: {
     backHeader: '#141313',
@@ -49,5 +52,8 @@ export default {
     footerText: '#445',
     sortActive: '#fafafa',
     sortInActive: '#454545',
+    tabActive: '#fafafa',
+    tabInActive: '#454545',
+    description: '#555',
   },
 };
