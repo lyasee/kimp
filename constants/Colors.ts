@@ -33,7 +33,7 @@ export default {
     backHeader: '#141313',
     backHeaderIcon: tintColorDark,
     text: '#f2f2f2',
-    background: '#000',
+    background: '#090909',
     tint: tintColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,

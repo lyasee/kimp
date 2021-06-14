@@ -27,7 +27,7 @@ const TabTwitterScreen = () => {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body style="background-color: ${colorScheme === 'dark' ? 'black' : 'white'};">
+  <body style="background-color: ${colors.background};">
     <a class="twitter-timeline" data-chrome="transparent" data-theme="${colorScheme}" href="https://twitter.com/elonmusk?ref_src=twsrc%5Etfw">Tweets by elonmusk</a>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </body>
@@ -39,7 +39,7 @@ const TabTwitterScreen = () => {
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body style="background-color: ${colorScheme === 'dark' ? 'black' : 'white'};">
+  <body style="background-color: ${colors.background};">
     <a class="twitter-timeline" data-chrome="transparent" data-theme="${colorScheme}" href="https://twitter.com/whale_alert?ref_src=twsrc%5Etfw">Tweets by whale_alert</a> 
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </body>
