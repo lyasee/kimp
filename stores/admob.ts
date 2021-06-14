@@ -60,7 +60,7 @@ const initialState: AdmobState = {
     unitId: isDev
       ? 'ca-app-pub-3940256099942544/4411468910'
       : Platform.OS === 'ios'
-      ? 'ca-app-pub-8271789671155671/6041781436'
+      ? 'ca-app-pub-8271789671155671/5800773122'
       : '',
     count: 0,
   },
