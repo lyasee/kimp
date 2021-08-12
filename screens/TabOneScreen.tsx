@@ -2,7 +2,14 @@ import * as React from 'react';
 import { AppState, AppStateStatus, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { useDispatch, useSelector } from 'react-redux';
-import { coin, coinNames, fetchGetCoinNames, setConnected } from '../stores/coin';
+import {
+  coin,
+  coinNames,
+  favoritesCoinNames,
+  fetchGetCoinNames,
+  setConnected,
+  setFavoriteCoin,
+} from '../stores/coin';
 import { ITableSort, IWebSocketData, Sort, SortType } from '../types/coin.types';
 import { binancePrices, fetchGetBinancePrices } from '../stores/binance';
 import { currencyUSD, fetchGetCurrency } from '../stores/currency';
@@ -14,6 +21,9 @@ import { toLocaleString } from '../utils/number';
 import ListTopBannerAdmob from '../components/admob/ListTopBannerAdmob';
 import { requestPermissionsAsync } from 'expo-ads-admob';
 import TableColumnSortIcon from '../components/common/TableColumnSortIcon';
+import ListTab, { ListTabValue } from '../components/common/ListTab';
+import StarIcon from '../components/icons/StarIcon';
+import { useState } from 'react';
 
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
@@ -23,10 +33,12 @@ export default function TabOneScreen() {
   const names = useSelector(coinNames);
   const binancePriceList = useSelector(binancePrices);
   const usd = useSelector(currencyUSD);
+  const favoritesNames = useSelector(favoritesCoinNames);
   const [sort, setSort] = React.useState<ITableSort>({
     type: SortType.가격,
     sort: Sort.DESC,
   });
+  const [tab, setTab] = useState(ListTabValue.전체);
 
   const appState = React.useRef(AppState.currentState);
 
@@ -141,10 +153,14 @@ export default function TabOneScreen() {
     });
   };
 
+  const handlePressFavoriteCoin = async (name: string) => {
+    dispatch(setFavoriteCoin(name));
+  };
+
   return (
     <View style={styles.container}>
-      <ListTopBannerAdmob />
       <ScrollView>
+        <ListTopBannerAdmob />
         <View style={styles.topDescriptionWrapper}>
           <Text style={{ ...styles.description, color: colors.exchangeRate }}>
             환율: {usd.basePrice}
@@ -152,6 +168,14 @@ export default function TabOneScreen() {
           <Text style={{ ...styles.description, color: colors.exchangeRate }}>
             회색은 바이낸스 가격입니다.
           </Text>
+        </View>
+
+        <View
+          style={{
+            ...styles.tabWrapper,
+            borderColor: colors.border,
+          }}>
+          <ListTab value={tab} onChange={setTab} />
         </View>
 
         <View
@@ -203,10 +227,26 @@ export default function TabOneScreen() {
         </View>
 
         {Object.keys(names)
-          .filter((key) => names[key] && items[key])
+          .filter((key) =>
+            tab === ListTabValue.관심
+              ? names[key] && items[key] && favoritesNames.includes(key)
+              : names[key] && items[key],
+          )
           .sort(sortHandler)
           .map((key) => (
             <View key={key} style={{ ...styles.item, borderColor: colors.border }}>
+              <TouchableOpacity
+                onPress={() => {
+                  handlePressFavoriteCoin(key);
+                }}>
+                <View style={{ paddingLeft: 12, paddingRight: 8 }}>
+                  <StarIcon
+                    size={16}
+                    color={favoritesNames.includes(key) ? '#ffbb00' : colors.inActivefavoriteIcon}
+                    fill={favoritesNames.includes(key)}
+                  />
+                </View>
+              </TouchableOpacity>
               <Text style={styles.name}>{names[key].name}</Text>
 
               <Text
@@ -266,6 +306,13 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontFamily: 'esamanru-light',
   },
+  tabWrapper: {
+    alignItems: 'flex-end',
+    paddingBottom: 10,
+    paddingTop: 10,
+    paddingRight: 10,
+    borderTopWidth: 1,
+  },
   header: {
     borderTopWidth: 1,
     borderBottomWidth: 1,
@@ -284,7 +331,9 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   item: {
-    padding: 12,
+    paddingTop: 12,
+    paddingRight: 12,
+    paddingBottom: 12,
     borderBottomWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',

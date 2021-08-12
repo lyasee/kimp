@@ -14,6 +14,8 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import * as Analytics from 'expo-firebase-analytics';
 import SettingsScreen from '../screens/SettingsScreen';
+import { useDispatch } from 'react-redux';
+import { initFavoriteCoin } from '../stores/coin';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const navigationRef = React.useRef<any>(null);
@@ -53,6 +55,12 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(initFavoriteCoin());
+  }, []);
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} />
