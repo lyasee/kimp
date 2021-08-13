@@ -89,22 +89,23 @@ export const setFavoriteCoin =
   async (dispatch, getState) => {
     try {
       const favoritesNames = getState().coin.favoritesNames;
-      const copy = favoritesNames.slice().filter((favoritesName) => favoritesName !== name);
-      const exist = favoritesNames.find((v) => v === name);
+      const names = favoritesNames.slice();
+      const copy = names.filter((favoritesName) => favoritesName !== name);
+      const exist = names.find((v) => v === name);
 
       if (!exist) {
         copy.push(name);
       }
 
       dispatch(setFavoritesNames(copy));
-      await AsyncStorage.setItem('favorites', JSON.stringify(copy));
+      await AsyncStorage.setItem('favoritesNames', JSON.stringify(copy));
     } catch (error) {}
   };
 
 export const initFavoriteCoin = (): AppThunk => async (dispatch) => {
   try {
-    const favorites = await AsyncStorage.getItem('favorites');
-    const json = favorites ? JSON.parse(JSON.stringify(favorites)) : [];
+    const favorites = await AsyncStorage.getItem('favoritesNames');
+    const json: string[] = typeof favorites === 'string' ? Array.from(JSON.parse(favorites)) : [];
     dispatch(setFavoritesNames(json));
   } catch (error) {
     dispatch(setFavoritesNames([]));
