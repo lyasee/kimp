@@ -145,7 +145,7 @@ export default function TabTwoScreen() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handlePressBinanceBox}>
+        {/* <TouchableOpacity onPress={handlePressBinanceBox}>
           <View style={styles.boxWrapper}>
             <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
               <Text style={styles.boxTitle}>바이낸스</Text>
@@ -172,7 +172,7 @@ export default function TabTwoScreen() {
               </View>
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {coins['KRW-BTC'] && (
           <View style={styles.boxWrapper}>

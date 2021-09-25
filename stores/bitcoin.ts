@@ -76,6 +76,8 @@ export const fetchGetBitcoinBinance = (): AppThunk => async (dispatch) => {
   } catch (error) {}
 };
 
+// fapi.bybt.com/api/futures/v2/marginMarketCap?sort=oi&sortWay=desc&symbol=BTC&type=1
+
 export const fetchGetBitcoinRate = (): AppThunk => async (dispatch) => {
   const url = 'https://fapi.bybt.com/api/futures/longShortRate?timeType=3&symbol=BTC';
   const response = await fetch(url);
