@@ -8,9 +8,9 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "history": "expo publish:history",
-    "ios-build": "expo build:ios --release-channel pro-1.2.0",
-    "android-build": "expo build:android --release-channel pro-1.2.0",
-    "publish": "expo publish --release-channel pro-1.2.0"
+    "ios-build": "expo build:ios --release-channel pro-1.2.1",
+    "android-build": "expo build:android --release-channel pro-1.2.1",
+    "publish": "expo publish --release-channel pro-1.2.1"
   },
   "jest": {
     "preset": "jest-expo"
