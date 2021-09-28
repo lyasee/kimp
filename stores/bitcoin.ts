@@ -76,51 +76,78 @@ export const fetchGetBitcoinBinance = (): AppThunk => async (dispatch) => {
   } catch (error) {}
 };
 
-// fapi.bybt.com/api/futures/v2/marginMarketCap?sort=oi&sortWay=desc&symbol=BTC&type=1
+export const fetchGetBitcoinBinancePrice = (): AppThunk => async (dispatch) => {
+  try {
+    const url = 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT';
+    const response = await fetch(url);
+    const json: {
+      symbol: string;
+      priceChange: string;
+      priceChangePercent: string;
+      weightedAvgPrice: string;
+      prevClosePrice: string;
+      lastPrice: string;
+      lastQty: string;
+      bidPrice: string;
+      bidQty: string;
+      askPrice: string;
+      askQty: string;
+      openPrice: string;
+      highPrice: string;
+      lowPrice: string;
+      volume: string;
+      quoteVolume: string;
+      openTime: number;
+      closeTime: number;
+      firstId: number;
+      lastId: number;
+      count: number;
+    } = await response.json();
+
+    const data = {
+      openPrice: Number(json.openPrice || 0),
+      price: Number(json.bidPrice || 0),
+      priceChangePercent: Number(json.priceChangePercent || 0),
+    };
+
+    dispatch(setBinance(data));
+  } catch (error) {}
+};
 
 export const fetchGetBitcoinRate = (): AppThunk => async (dispatch) => {
-  const url = 'https://fapi.bybt.com/api/futures/longShortRate?timeType=3&symbol=BTC';
-  const response = await fetch(url);
-  const json: {
-    data: {
-      symbol: 'BTC';
-      turnoverNumber: number;
-      longRate: number;
-      longVolUsd: number;
-      shortRate: number;
-      shortVolUsd: number;
-      symbolLogo: string;
-      totalVolUsd: number;
-      list: {
-        exchangeName: string;
-        originalSymbol: string;
-        symbol: string;
-        price: number;
-        openPrice: number;
-        priceChangePercent: number;
+  try {
+    const url = 'https://fapi.bybt.com/api/futures/longShortRate?timeType=3&symbol=BTC';
+    const response = await fetch(url);
+    const json: {
+      data: {
+        symbol: 'BTC';
+        turnoverNumber: number;
+        longRate: number;
+        longVolUsd: number;
+        shortRate: number;
+        shortVolUsd: number;
+        symbolLogo: string;
+        totalVolUsd: number;
+        list: {
+          exchangeName: string;
+          originalSymbol: string;
+          symbol: string;
+          price: number;
+          openPrice: number;
+          priceChangePercent: number;
+        }[];
       }[];
-    }[];
-  } = await response.json();
+    } = await response.json();
 
-  if (json.data.length > 0) {
-    dispatch(
-      setRate({
-        long: json.data[0].longRate,
-        short: json.data[0].shortRate,
-      }),
-    );
-
-    if (json.data[0].list.length > 0) {
-      const find = json.data[0].list.find((v) => v.exchangeName.toLocaleLowerCase() === 'binance');
-      if (find) {
-        dispatch(
-          setBinance({
-            ...find,
-          }),
-        );
-      }
+    if (json.data.length > 0) {
+      dispatch(
+        setRate({
+          long: json.data[0].longRate,
+          short: json.data[0].shortRate,
+        }),
+      );
     }
-  }
+  } catch (error) {}
 };
 
 export const bitcoinRate = (state: RootState) => state.bitcoin.rate;

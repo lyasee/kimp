@@ -8,6 +8,7 @@ import {
   bitcoinBinance,
   fetchGetBitcoinBinance,
   bitcoinDominance,
+  fetchGetBitcoinBinancePrice,
 } from '../stores/bitcoin';
 import useInterval from '../hooks/useInterval';
 import { coin } from '../stores/coin';
@@ -39,6 +40,7 @@ export default function TabTwoScreen() {
   React.useEffect(() => {
     dispatch(fetchGetBitcoinRate());
     dispatch(fetchGetBitcoinBinance());
+    dispatch(fetchGetBitcoinBinancePrice());
   }, [dispatch]);
 
   useInterval(() => {
@@ -47,6 +49,7 @@ export default function TabTwoScreen() {
 
   useInterval(() => {
     dispatch(fetchGetBitcoinBinance());
+    dispatch(fetchGetBitcoinBinancePrice());
   }, 5000);
 
   const getBitcoinPriceColor = (price: number, openPrice: number) => {
@@ -145,7 +148,7 @@ export default function TabTwoScreen() {
           </View>
         </TouchableOpacity>
 
-        {/* <TouchableOpacity onPress={handlePressBinanceBox}>
+        <TouchableOpacity onPress={handlePressBinanceBox}>
           <View style={styles.boxWrapper}>
             <View style={{ ...styles.box, backgroundColor: colors.bitcoinBox }}>
               <Text style={styles.boxTitle}>바이낸스</Text>
@@ -172,7 +175,7 @@ export default function TabTwoScreen() {
               </View>
             </View>
           </View>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
         {coins['KRW-BTC'] && (
           <View style={styles.boxWrapper}>
