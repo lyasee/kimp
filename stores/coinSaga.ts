@@ -16,6 +16,10 @@ const sendSocket = (socket: WebSocket) => {
       {
         type: 'ticker',
         codes: [
+          'KRW-XEC',
+          'KRW-MATIC',
+          'KRW-SOL',
+          'KRW-NU',
           'KRW-BTC',
           'KRW-ETH',
           'KRW-NEO',
