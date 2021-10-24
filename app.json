@@ -2,7 +2,7 @@
   "expo": {
     "name": "김프",
     "slug": "kimp",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "orientation": "portrait",
     "icon": "./assets/images/adaptive-icon.png",
     "scheme": "kimp",
@@ -15,12 +15,12 @@
     "updates": {
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
-      "fallbackToCacheTimeout": 30000
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.lyasee.kimp",
-      "buildNumber": "2",
+      "buildNumber": "1",
       "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
         "NSUserTrackingUsageDescription": "앱이 타겟광고게재 추적 목적으로 IDFA에 접근하려고 합니다."
@@ -37,7 +37,7 @@
       "icon": "./assets/images/adaptive-icon.png",
       "package": "com.lyasee.kimp",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 8,
+      "versionCode": 10,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundImage": "./assets/images/adaptive-icon.png",
