@@ -116,7 +116,7 @@ export const fetchGetBitcoinBinancePrice = (): AppThunk => async (dispatch) => {
 
 export const fetchGetBitcoinRate = (): AppThunk => async (dispatch) => {
   try {
-    const url = 'https://fapi.bybt.com/api/futures/longShortRate?timeType=3&symbol=BTC';
+    const url = 'https://fapi.coinglass.com/api/futures/longShortRate?timeType=3&symbol=BTC';
     const response = await fetch(url);
     const json: {
       data: {
