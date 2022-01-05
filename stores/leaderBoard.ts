@@ -23,7 +23,7 @@ export const leaderBoardSlice = createSlice({
 export const { setItems } = leaderBoardSlice.actions;
 
 export const fetchGetLeaderBoards = (): AppThunk => async (dispatch) => {
-  const url = 'https://fapi.bybt.com/api/bitmex/leaderboard';
+  const url = 'https://fapi.coinglass.com/api/bitmex/leaderboard';
   const response = await fetch(url);
   const res: IByBtLeaderBoardResponse = await response.json();
   dispatch(setItems(res.data.list));
